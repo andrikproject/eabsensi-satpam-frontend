@@ -7,9 +7,9 @@
 window.APP_CONFIG = {
   APP_NAME: "EAbsensi SATPAM BANK KALTIMTARA",
   ADMIN_USERNAME: "admin",
-  ADMIN_PASSWORD: "GANTI_PASSWORD_INI",
+  ADMIN_PASSWORD: "230198",
   GITHUB: {
-    owner: "USERNAME_GITHUB_ANDA",
+    owner: "andrikproject",
     repo: "eabsensi-satpam-backend",
     branch: "main",
     dataPath: "data/anggota.json"
