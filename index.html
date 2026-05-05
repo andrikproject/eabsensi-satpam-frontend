@@ -1,0 +1,1183 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>EAbsensi SATPAM Bank Kaltimtara</title>
+  <meta name="theme-color" content="#020817">
+  <style>
+    :root{
+      --bg:#020817;
+      --card:#07162d;
+      --card2:#0a1f40;
+      --cyan:#00d9ff;
+      --cyan2:#76efff;
+      --pink:#ff35d1;
+      --purple:#8a45ff;
+      --green:#00ff95;
+      --yellow:#ffd84a;
+      --red:#ff417d;
+      --text:#eef8ff;
+      --muted:#abc1e8;
+      --line:rgba(0,217,255,.38);
+      --line2:rgba(255,53,209,.38);
+      --shadow:0 0 30px rgba(0,217,255,.23), inset 0 0 22px rgba(0,217,255,.08);
+      --font:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:var(--font)}
+    body{
+      overflow-x:hidden;
+      background:
+        radial-gradient(circle at 12% 8%,rgba(0,217,255,.18),transparent 27%),
+        radial-gradient(circle at 90% 12%,rgba(255,53,209,.16),transparent 28%),
+        radial-gradient(circle at 50% 112%,rgba(138,69,255,.20),transparent 35%),
+        linear-gradient(180deg,#02040b 0%,#06122a 50%,#02040b 100%);
+    }
+    body:before{
+      content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.24;
+      background-image:
+        linear-gradient(rgba(0,217,255,.08) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,217,255,.08) 1px,transparent 1px);
+      background-size:32px 32px;
+      mask-image:linear-gradient(180deg,#000 0%,transparent 90%);
+    }
+    body:after{
+      content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.38;
+      background:linear-gradient(transparent 50%,rgba(0,0,0,.32) 50%);
+      background-size:100% 4px;
+      mix-blend-mode:soft-light;
+    }
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    input,select,textarea{
+      width:100%;border:1px solid rgba(0,217,255,.36);border-radius:13px;background:rgba(4,12,28,.94);
+      color:var(--text);padding:12px;outline:none;box-shadow:inset 0 0 15px rgba(0,217,255,.06);
+    }
+    textarea{min-height:84px;resize:vertical}
+    input:focus,select:focus,textarea:focus{border-color:var(--cyan);box-shadow:0 0 20px rgba(0,217,255,.24),inset 0 0 12px rgba(0,217,255,.1)}
+    label{font-size:12px;font-weight:900;color:#bdd3f7;letter-spacing:.04em}
+    .app{position:relative;z-index:1;width:min(100%,480px);margin:0 auto;min-height:100svh;padding:10px 12px 98px}
+    .view{display:none;animation:show .22s ease}
+    .view.active{display:block}
+    @keyframes show{from{opacity:.35;transform:translateY(8px)}to{opacity:1;transform:none}}
+    .cyber{
+      position:relative;overflow:hidden;border:1px solid var(--line);border-radius:18px;
+      background:linear-gradient(135deg,rgba(5,16,35,.88),rgba(3,8,22,.94));
+      box-shadow:var(--shadow);
+    }
+    .cyber:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(105deg,rgba(0,217,255,.12),transparent 42%,rgba(255,53,209,.12));}
+    .cyber:after{content:"";position:absolute;right:-18%;top:-24%;width:56%;height:80%;pointer-events:none;background:radial-gradient(circle,rgba(255,53,209,.18),transparent 58%);filter:blur(8px)}
+    .content{position:relative;z-index:1}
+    .cut{clip-path:polygon(0 18px,18px 0,calc(100% - 20px) 0,100% 20px,100% calc(100% - 18px),calc(100% - 18px) 100%,18px 100%,0 calc(100% - 18px));border-radius:0}
+    .section{margin-top:14px;padding:14px 12px}
+    .section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;color:var(--cyan);font-weight:1000;letter-spacing:.06em;text-shadow:0 0 14px rgba(0,217,255,.55)}
+    .section-title .left{display:flex;gap:8px;align-items:center}
+    .see,.chip-btn{border:1px solid rgba(0,217,255,.55);background:rgba(0,217,255,.09);color:var(--cyan);padding:7px 10px;border-radius:12px;font-weight:900;font-size:12px;white-space:nowrap}
+    .hero{min-height:365px;padding:13px 14px 17px;border-color:rgba(0,217,255,.45);background:radial-gradient(circle at 27% 56%,rgba(0,217,255,.15),transparent 28%),radial-gradient(circle at 85% 52%,rgba(255,53,209,.22),transparent 30%),linear-gradient(145deg,#030711 0%,#071a38 62%,#16051e 100%)}
+    .hero-city{position:absolute;left:0;right:0;bottom:0;height:220px;z-index:0;opacity:.62;background:linear-gradient(90deg,transparent 0 4%,rgba(0,217,255,.23) 4% 5%,transparent 5% 10%,rgba(255,53,209,.25) 10% 11%,transparent 11% 17%) 0 100%/48px 150px repeat-x,linear-gradient(90deg,rgba(0,217,255,.10),rgba(255,53,209,.14));mask-image:linear-gradient(0deg,#000 0%,#000 60%,transparent 100%)}
+    .topbar{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center}
+    .iconbtn{width:44px;height:44px;border:1px solid rgba(0,217,255,.48);border-radius:14px;background:rgba(4,13,30,.72);color:var(--cyan);display:grid;place-items:center;font-size:23px;font-weight:1000;box-shadow:0 0 18px rgba(0,217,255,.17)}
+    .bell{position:relative;color:#d6edff}
+    .bell:after{content:"";position:absolute;right:8px;top:7px;width:10px;height:10px;background:var(--pink);border-radius:50%;box-shadow:0 0 12px var(--pink)}
+    .guard{position:absolute;left:-21px;top:72px;width:142px;height:222px;z-index:1;opacity:.84;background:radial-gradient(circle at 52% 10%,#111a27 0 24px,transparent 25px),linear-gradient(90deg,transparent 18%,#07101d 19% 80%,transparent 81%),linear-gradient(180deg,#0b1728 0%,#050d19 100%);clip-path:polygon(37% 0,66% 0,76% 16%,75% 33%,89% 49%,78% 100%,20% 100%,12% 50%,25% 33%,25% 16%);filter:drop-shadow(0 0 20px rgba(0,217,255,.36))}
+    .guard:before{content:"";position:absolute;left:27px;top:32px;width:66px;height:14px;background:#050a13;border:1px solid rgba(0,217,255,.35);border-radius:50% 50% 10px 10px;transform:rotate(-5deg)}
+    .guard:after{content:"SATPAM";position:absolute;left:42px;top:88px;color:#00d9ff;font-weight:1000;font-size:14px;letter-spacing:.06em;transform:rotate(-2deg);text-shadow:0 0 14px #00d9ff}
+    .hero-title{position:relative;z-index:2;text-align:center;padding-left:72px;margin-top:14px}
+    .hero-title .small{letter-spacing:.47em;color:#9cebff;font-size:13px;font-weight:1000;text-shadow:0 0 12px var(--cyan)}
+    .hero-title h1{margin:7px 0 0;font-size:52px;line-height:.88;letter-spacing:.04em;color:#e1f7ff;font-weight:1000;text-shadow:0 0 7px #78eaff,0 0 26px rgba(0,217,255,.70)}
+    .hero-title h2{margin:4px 0 0;font-size:28px;line-height:1.05;letter-spacing:.13em;color:#ff78e6;font-weight:1000;text-shadow:0 0 20px rgba(255,53,209,.72)}
+    .subtitle{margin-top:6px;color:#16caff;font-size:16px;text-shadow:0 0 10px rgba(0,217,255,.7)}
+    .clockbar{display:inline-flex;align-items:center;gap:10px;margin-top:17px;padding:9px 13px;border:1px solid rgba(0,217,255,.52);border-radius:12px;background:rgba(3,10,25,.72);color:#e2efff;box-shadow:0 0 18px rgba(0,217,255,.19)}
+    .shift-card{margin-top:25px;min-height:109px;padding:18px 96px 18px 110px;border-width:2px;border-color:rgba(0,217,255,.72);box-shadow:0 0 0 1px rgba(255,53,209,.32),0 0 28px rgba(0,217,255,.27),inset 0 0 28px rgba(0,217,255,.08)}
+    .shield{position:absolute;left:18px;top:16px;width:75px;height:75px;border:3px solid var(--cyan);border-radius:24% 24% 45% 45%;display:grid;place-items:center;color:#c9f8ff;background:radial-gradient(circle,rgba(0,217,255,.34),rgba(0,217,255,.08));box-shadow:0 0 20px rgba(0,217,255,.55),inset 0 0 24px rgba(0,217,255,.22);font-size:37px}
+    .shift-label{color:var(--cyan);font-size:17px;font-weight:1000;letter-spacing:.05em}
+    .shift-name{font-size:42px;line-height:1;margin:6px 0;font-weight:1000;letter-spacing:.04em;text-shadow:0 0 15px currentColor}
+    .shift-time{color:var(--cyan);font-size:20px;font-weight:1000;letter-spacing:.03em}
+    .ring{position:absolute;right:22px;top:23px;width:80px;height:80px;border-radius:50%;border:1px dashed rgba(0,217,255,.43);display:grid;place-items:center;color:var(--cyan);font-size:38px;box-shadow:inset 0 0 24px rgba(0,217,255,.18)}
+    .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:13px}
+    .mini{min-height:88px;padding:12px 8px;text-align:center}
+    .mini .ico{font-size:25px;line-height:1.05;margin-bottom:3px}
+    .mini .title{font-size:11px;color:#c6dbff;font-weight:1000;letter-spacing:.02em}
+    .mini .num{font-size:31px;line-height:1.03;font-weight:1000;text-shadow:0 0 12px currentColor}
+    .mini .unit{font-size:11px;color:#d5e1ff}
+    .members{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+    .member-card{position:relative;overflow:hidden;min-height:195px;padding:10px;border-radius:16px;border:1px solid rgba(0,217,255,.28);background:linear-gradient(180deg,rgba(9,28,58,.73),rgba(4,12,28,.92));box-shadow:inset 0 0 18px rgba(0,217,255,.08)}
+    .member-card:nth-child(2n){border-color:rgba(255,53,209,.40)}
+    .member-card:nth-child(4n){border-color:rgba(255,216,74,.44)}
+    .member-card:before{content:"";position:absolute;inset:8px 8px auto 8px;height:92px;border:1px solid rgba(0,217,255,.28);border-radius:14px;background:linear-gradient(135deg,rgba(0,217,255,.13),transparent,rgba(255,53,209,.13))}
+    .avatar{position:relative;height:94px;margin-bottom:10px;border-radius:14px;display:grid;place-items:end center;overflow:hidden;background-size:cover;background-position:center}
+    .avatar:not(.photo):before{content:"";position:absolute;top:15px;width:36px;height:36px;border-radius:50%;background:linear-gradient(180deg,#dff9ff,#57dfff);box-shadow:0 0 18px rgba(0,217,255,.7)}
+    .avatar:not(.photo):after{content:"";position:absolute;bottom:0;width:72px;height:55px;border-radius:34px 34px 10px 10px;background:linear-gradient(180deg,#0c1a2e,#050d19);border:1px solid rgba(0,217,255,.26)}
+    .member-name{position:relative;font-size:16px;font-weight:1000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .member-role{position:relative;margin-top:2px;color:#c2d2f0;font-size:13px}
+    .regu{position:relative;margin:3px 0 8px;color:var(--cyan);font-size:13px;font-weight:900}
+    .badge{position:relative;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:11px;border:1px solid currentColor;font-weight:1000;font-size:13px;background:rgba(255,255,255,.05);box-shadow:0 0 15px currentColor}
+    .pagi{color:var(--green)} .malam{color:#e164ff} .off{color:#ff80aa} .lembur{color:var(--yellow)} .cuti{color:#7ddcff}
+    .status-row{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid rgba(165,196,255,.22);border-radius:16px;overflow:hidden;background:rgba(5,15,34,.72)}
+    .status-item{padding:13px 7px;text-align:center;border-right:1px solid rgba(255,255,255,.12)}
+    .status-item:last-child{border-right:0}
+    .status-item.active{outline:2px solid var(--cyan);outline-offset:-2px;box-shadow:inset 0 0 24px rgba(0,217,255,.20)}
+    .status-big{font-size:17px;font-weight:1000}
+    .status-small{font-size:12px;color:#bed0f4;margin-top:3px}
+    .timeline{display:grid;gap:8px}
+    .note{display:grid;grid-template-columns:78px 1fr 22px;gap:9px;align-items:center}
+    .note-time{color:var(--cyan);border:1px solid currentColor;border-radius:11px;padding:8px 6px;text-align:center;font-weight:1000;background:rgba(0,217,255,.08)}
+    .note-card{padding:11px 12px;border:1px solid rgba(165,196,255,.18);border-radius:14px;background:rgba(9,24,49,.74)}
+    .note-card h4{margin:0 0 3px;font-size:15px}
+    .note-card p{margin:0;color:#bdd1f0;font-size:13px;line-height:1.36}
+    .note-card .by{margin-top:5px;color:#76eaff;font-size:12px}
+    .tabs{position:fixed;z-index:90;left:50%;bottom:0;transform:translateX(-50%);width:min(100%,480px);padding:8px 11px 10px;background:linear-gradient(180deg,rgba(4,8,18,.35),rgba(4,8,18,.96));backdrop-filter:blur(12px)}
+    .tabbox{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(0,217,255,.35);border-radius:18px;overflow:hidden;background:rgba(5,13,30,.9);box-shadow:0 0 23px rgba(0,217,255,.18)}
+    .tab{border:0;background:transparent;color:#b8c9e9;padding:10px 4px 8px;display:grid;gap:3px;place-items:center;font-weight:900}
+    .tab.active{color:var(--cyan);background:linear-gradient(180deg,rgba(0,217,255,.18),transparent);box-shadow:inset 0 -3px 0 var(--cyan)}
+    .tab .ti{font-size:22px;line-height:1}
+    .toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+    .field{display:grid;gap:6px;margin:9px 0}
+    .btn{border:1px solid rgba(0,217,255,.55);border-radius:13px;background:linear-gradient(90deg,rgba(0,217,255,.18),rgba(138,69,255,.16));color:#ebf9ff;padding:10px 12px;font-weight:1000;box-shadow:0 0 15px rgba(0,217,255,.16)}
+    .btn.small{padding:7px 9px;border-radius:10px;font-size:12px}
+    .btn.green{border-color:rgba(0,255,149,.55);background:rgba(0,255,149,.13)}
+    .btn.pink{border-color:rgba(255,53,209,.58);background:rgba(255,53,209,.15)}
+    .btn.red{border-color:rgba(255,65,125,.58);background:rgba(255,65,125,.14)}
+    .btn.yellow{border-color:rgba(255,216,74,.58);background:rgba(255,216,74,.12)}
+    .admin-card{padding:13px;border:1px solid rgba(0,217,255,.24);border-radius:16px;background:rgba(4,12,29,.78)}
+    .hint,.sync{color:#b0c5e8;font-size:12px;line-height:1.45}
+    .warn{border:1px solid rgba(255,216,74,.35);background:rgba(255,216,74,.08);color:#ffecad;padding:10px;border-radius:13px;font-size:12px;line-height:1.45}
+    .empty{border:1px dashed rgba(0,217,255,.28);border-radius:14px;padding:18px 9px;text-align:center;color:#aabfe0}
+    .list{display:grid;gap:8px;margin-top:10px}
+    .row{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid rgba(255,255,255,.10);border-radius:13px;padding:10px;background:rgba(255,255,255,.035)}
+    .row .meta{margin-top:3px;color:#b6c9e8;font-size:12px}
+    .row-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+    .table-wrap{overflow:auto;border:1px solid rgba(0,217,255,.27);border-radius:15px;background:rgba(4,12,29,.82)}
+    table{width:100%;min-width:760px;border-collapse:collapse}
+    th,td{padding:9px 8px;border-bottom:1px solid rgba(255,255,255,.08);font-size:12px;vertical-align:top}
+    th{position:sticky;top:0;background:#071b36;color:#67eaff;text-align:left;z-index:2}
+    th:first-child,td:first-child{position:sticky;left:0;background:#071529;z-index:1}
+    th:first-child{z-index:3}
+    .pill{display:inline-block;margin:2px 2px 2px 0;padding:4px 7px;border:1px solid rgba(255,255,255,.14);border-radius:999px;background:rgba(255,255,255,.06);white-space:nowrap}
+    .holiday{color:#ff8db8;font-weight:1000}
+    .toast{position:fixed;z-index:200;left:50%;bottom:92px;transform:translateX(-50%) translateY(18px);opacity:0;pointer-events:none;width:min(92%,430px);transition:.22s;background:#071b36;border:1px solid rgba(0,217,255,.58);border-radius:14px;padding:11px 14px;color:#eaf8ff;box-shadow:0 0 24px rgba(0,217,255,.28)}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    .debug{margin-top:10px;white-space:pre-wrap;font-size:11px;color:#ffc7dd;background:rgba(255,65,125,.08);border:1px solid rgba(255,65,125,.25);border-radius:12px;padding:10px;display:none}
+    @media (min-width:430px){.members{grid-template-columns:repeat(4,1fr)}.member-card{min-height:190px}.avatar{height:86px}.member-name{font-size:14px}.hero-title h1{font-size:58px}}
+    @media (max-width:374px){.hero-title{padding-left:54px}.hero-title h1{font-size:43px}.hero-title h2{font-size:23px}.shift-card{padding-left:92px;padding-right:18px}.ring{display:none}.cards3{gap:8px}.mini .num{font-size:25px}.note{grid-template-columns:64px 1fr 18px}.tab{font-size:12px}}
+    @media print{body{background:white;color:#111}.tabs,.hero,.cards3,.btn,.see{display:none!important}.app{width:100%;max-width:none;padding:0}.view{display:block}.cyber{box-shadow:none;border:1px solid #888;background:white;color:#111}.cyber:before,.cyber:after{display:none}th,td,th:first-child,td:first-child{background:white;color:#111;position:static}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <section id="dashboard" class="view active">
+    <div class="cyber cut hero">
+      <div class="hero-city"></div>
+      <div class="topbar">
+        <button class="iconbtn" type="button" data-action="toast-menu">☰</button>
+        <button class="iconbtn bell" type="button" data-action="toast-notif">♢</button>
+      </div>
+      <div class="guard" aria-hidden="true"></div>
+      <div class="hero-title">
+        <div class="small">CATATAN KERJA</div>
+        <h1>SATPAM</h1>
+        <h2>BANK KALTIMTARA</h2>
+        <div class="subtitle">Cyber Security Duty System</div>
+        <div class="clockbar"><span>▣</span><span id="todayText">-</span><span>•</span><span>◷</span><b id="clockText">--:--</b></div>
+      </div>
+      <div class="cyber cut shift-card">
+        <div class="content">
+          <div class="shield">👤</div>
+          <div class="shift-label">SHIFT AKTIF</div>
+          <div class="shift-name" id="activeShiftName">PAGI</div>
+          <div class="shift-time" id="activeShiftTime">07:00 - 19:00</div>
+          <div class="ring" id="activeShiftIcon">☀</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cards3">
+      <div class="cyber mini"><div class="content"><div class="ico" style="color:var(--cyan)">👥</div><div class="title">ANGGOTA JAGA</div><div class="num" id="countDuty" style="color:#8bdcff">0</div><div class="unit">Orang</div></div></div>
+      <div class="cyber mini"><div class="content"><div class="ico" style="color:#e164ff">👤⊖</div><div class="title">SEDANG OFF</div><div class="num" id="countOff" style="color:#e164ff">0</div><div class="unit">Orang</div></div></div>
+      <div class="cyber mini"><div class="content"><div class="ico" style="color:var(--red)">▣</div><div class="title">LIBUR NASIONAL</div><div class="num" id="countHoliday" style="color:#ff7da9">0</div><div class="unit">Hari Ini</div></div></div>
+    </div>
+
+    <div class="cyber section">
+      <div class="content">
+        <div class="section-title"><span class="left">👥 ANGGOTA JAGA HARI INI</span><button class="see" type="button" data-goto="jadwal">Lihat Semua ›</button></div>
+        <div class="members" id="todayMembers"></div>
+      </div>
+    </div>
+
+    <div class="cyber section">
+      <div class="content">
+        <div class="section-title"><span class="left">〽 STATUS SHIFT</span></div>
+        <div class="status-row">
+          <div id="statusPagi" class="status-item"><div class="status-big" style="color:var(--cyan)">☀ PAGI</div><div class="status-small">07:00 - 19:00</div></div>
+          <div id="statusMalam" class="status-item"><div class="status-big" style="color:#e164ff">☾ MALAM</div><div class="status-small">19:00 - 07:00</div></div>
+          <div id="statusOff" class="status-item"><div class="status-big" style="color:#ff9bc0">⊖ OFF</div><div class="status-small">Tidak Bertugas</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cyber section">
+      <div class="content">
+        <div class="section-title"><span class="left">📝 CATATAN TERBARU</span><button class="see" type="button" data-goto="catatan">Lihat Semua ›</button></div>
+        <div class="timeline" id="latestNotes"></div>
+      </div>
+    </div>
+
+    <div class="cyber section">
+      <div class="content">
+        <div class="section-title"><span class="left">▦ TABLE SHIFT BULAN INI</span><button class="see" type="button" data-goto="jadwal">Buka Jadwal ›</button></div>
+        <div class="sync" id="syncStatus">Memuat data...</div>
+        <div style="height:10px"></div>
+        <div class="table-wrap"><table id="dashboardTable"></table></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="jadwal" class="view">
+    <div class="cyber section" style="margin-top:8px">
+      <div class="content">
+        <div class="section-title"><span class="left">📅 JADWAL SHIFT 1 BULAN</span></div>
+        <div class="toolbar">
+          <input id="monthPick" type="month" style="max-width:185px">
+          <button class="btn small" type="button" id="btnRenderSchedule">Tampilkan</button>
+          <button class="btn small pink" type="button" id="btnPrint">Print</button>
+        </div>
+        <div class="warn">Pola otomatis: <b>Pagi → Malam → Off → Off → Off → Off</b>. Jam Pagi 07:00-19:00, Malam 19:00-07:00. Offset tiap anggota diatur dari Admin.</div>
+        <div style="height:10px"></div>
+        <div class="table-wrap"><table id="scheduleTable"></table></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="catatan" class="view">
+    <div class="cyber section" style="margin-top:8px">
+      <div class="content">
+        <div class="section-title"><span class="left">📝 CATATAN KERJA</span></div>
+        <div class="toolbar"><input id="noteSearch" placeholder="Cari catatan..."></div>
+        <div class="timeline" id="notesPage"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="admin" class="view">
+    <div id="loginBox" class="cyber section" style="margin-top:8px">
+      <div class="content">
+        <div class="section-title"><span class="left">🛡 ADMIN LOGIN</span></div>
+        <div class="field"><label>Username</label><input id="loginUser" value="admin" autocomplete="username"></div>
+        <div class="field"><label>Password / PIN</label><input id="loginPass" type="password" placeholder="123456" autocomplete="current-password"></div>
+        <button class="btn green" type="button" id="btnAdminLogin">Masuk Admin</button>
+        <div id="loginMessage" class="hint" style="margin-top:10px">Login awal: admin / 123456</div>
+        <div id="debugBox" class="debug"></div>
+        <div style="height:10px"></div>
+        <div class="warn">Setelah edit data, klik <b>Sync ke GitHub</b> agar data tampil lagi setelah refresh dan bisa dilihat semua orang.</div>
+      </div>
+    </div>
+
+    <div id="adminPanel" style="display:none">
+      <div class="cyber section" style="margin-top:8px">
+        <div class="content">
+          <div class="section-title"><span class="left">⚙ GITHUB BACKEND</span><button class="see" type="button" id="btnAdminLogout">Logout</button></div>
+          <div class="admin-card">
+            <div class="field"><label>Owner GitHub</label><input id="cfgOwner" placeholder="username-github"></div>
+            <div class="field"><label>Repo Backend</label><input id="cfgRepo" placeholder="eabsensi-satpam-backend"></div>
+            <div class="field"><label>Branch</label><input id="cfgBranch" placeholder="main"></div>
+            <div class="field"><label>Path Database</label><input id="cfgPath" placeholder="database.json"></div>
+            <div class="field"><label>GitHub Token Admin</label><input id="cfgToken" type="password" placeholder="github_pat_..."></div>
+            <div class="toolbar">
+              <button class="btn" type="button" id="btnSaveConfig">Simpan Config</button>
+              <button class="btn green" type="button" id="btnSyncGithub">Sync ke GitHub</button>
+              <button class="btn pink" type="button" id="btnLoadGithub">Load dari GitHub</button>
+            </div>
+            <div class="hint">Token hanya tersimpan di browser admin. Jangan taruh token di file index.html.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cyber section">
+        <div class="content">
+          <div class="section-title"><span class="left">👥 CRUD ANGGOTA</span></div>
+          <div class="admin-card">
+            <input type="hidden" id="memberId">
+            <div class="field"><label>Nama</label><input id="memberName" placeholder="Andi Pratama"></div>
+            <div class="field"><label>Jabatan</label><input id="memberRole" placeholder="Danru / Anggota"></div>
+            <div class="field"><label>Regu</label><select id="memberRegu"><option>Regu A</option><option>Regu B</option><option>Regu C</option><option>Regu D</option></select></div>
+            <div class="field"><label>Nomor HP</label><input id="memberPhone" placeholder="08xx"></div>
+            <div class="field"><label>Offset Pola Shift</label><select id="memberOffset"><option value="0">0 = Pagi hari pertama</option><option value="1">1 = Malam hari pertama</option><option value="2">2 = Off hari ke-1</option><option value="3">3 = Off hari ke-2</option><option value="4">4 = Off hari ke-3</option><option value="5">5 = Off hari ke-4</option></select></div>
+            <div class="field"><label>Status Aktif</label><select id="memberActive"><option value="true">Aktif</option><option value="false">Nonaktif</option></select></div>
+            <div class="field"><label>URL Foto Opsional</label><input id="memberPhoto" placeholder="https://..."></div>
+            <div class="toolbar"><button class="btn green" type="button" id="btnSaveMember">Simpan Anggota</button><button class="btn" type="button" id="btnClearMember">Form Baru</button></div>
+          </div>
+          <div id="membersList" class="list"></div>
+        </div>
+      </div>
+
+      <div class="cyber section">
+        <div class="content">
+          <div class="section-title"><span class="left">📝 CRUD CATATAN</span></div>
+          <div class="admin-card">
+            <input type="hidden" id="noteId">
+            <div class="field"><label>Tanggal</label><input id="noteDate" type="date"></div>
+            <div class="field"><label>Jam</label><input id="noteTime" type="time"></div>
+            <div class="field"><label>Judul</label><input id="noteTitle" placeholder="Pemeriksaan Area Lobby"></div>
+            <div class="field"><label>Isi Catatan</label><textarea id="noteDesc" placeholder="Tulis detail kegiatan..."></textarea></div>
+            <div class="field"><label>Petugas</label><select id="noteMember"></select></div>
+            <div class="field"><label>Tipe</label><select id="noteType"><option value="rutin">Rutin</option><option value="insiden">Insiden</option><option value="serah-terima">Serah Terima</option><option value="laporan">Laporan</option></select></div>
+            <div class="toolbar"><button class="btn green" type="button" id="btnSaveNote">Simpan Catatan</button><button class="btn" type="button" id="btnClearNote">Form Baru</button></div>
+          </div>
+          <div id="adminNotesList" class="list"></div>
+        </div>
+      </div>
+
+      <div class="cyber section">
+        <div class="content">
+          <div class="section-title"><span class="left">⭐ LEMBUR / CUTI / OFF KHUSUS</span></div>
+          <div class="admin-card">
+            <input type="hidden" id="exceptionId">
+            <div class="field"><label>Tanggal</label><input id="exDate" type="date"></div>
+            <div class="field"><label>Anggota</label><select id="exMember"></select></div>
+            <div class="field"><label>Jenis</label><select id="exType"><option value="lembur">Lembur</option><option value="cuti">Cuti</option><option value="off">Off Khusus</option></select></div>
+            <div class="field"><label>Shift Lembur</label><select id="exShift"><option value="PAGI">PAGI</option><option value="MALAM">MALAM</option></select></div>
+            <div class="field"><label>Keterangan</label><input id="exNote" placeholder="Keterangan"></div>
+            <div class="toolbar"><button class="btn green" type="button" id="btnSaveException">Simpan</button><button class="btn" type="button" id="btnClearException">Form Baru</button></div>
+          </div>
+          <div id="exceptionsList" class="list"></div>
+        </div>
+      </div>
+
+      <div class="cyber section">
+        <div class="content">
+          <div class="section-title"><span class="left">🎌 LIBUR NASIONAL</span></div>
+          <div class="admin-card">
+            <input type="hidden" id="holidayId">
+            <div class="field"><label>Tanggal</label><input id="holidayDate" type="date"></div>
+            <div class="field"><label>Nama Hari Libur</label><input id="holidayName" placeholder="Libur Nasional / Cuti Bersama"></div>
+            <div class="toolbar"><button class="btn green" type="button" id="btnSaveHoliday">Simpan Libur</button><button class="btn" type="button" id="btnClearHoliday">Form Baru</button></div>
+            <div class="hint">Aplikasi juga mencoba membaca libur nasional otomatis Indonesia. Data manual tetap disimpan sebagai cadangan.</div>
+          </div>
+          <div id="holidaysList" class="list"></div>
+        </div>
+      </div>
+
+      <div class="cyber section">
+        <div class="content">
+          <div class="section-title"><span class="left">🔐 SETTING LOGIN</span></div>
+          <div class="admin-card">
+            <div class="field"><label>Username Admin</label><input id="setAdminUser"></div>
+            <div class="field"><label>Password / PIN Admin</label><input id="setAdminPass" type="password"></div>
+            <button class="btn green" type="button" id="btnSaveAdminSetting">Simpan Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<nav class="tabs">
+  <div class="tabbox">
+    <button class="tab active" data-tab="dashboard" type="button"><span class="ti">▦</span><span>Dashboard</span></button>
+    <button class="tab" data-tab="jadwal" type="button"><span class="ti">▣</span><span>Jadwal</span></button>
+    <button class="tab" data-tab="catatan" type="button"><span class="ti">▤</span><span>Catatan</span></button>
+    <button class="tab" data-tab="admin" type="button"><span class="ti">⬟</span><span>Admin</span></button>
+  </div>
+</nav>
+
+<div id="toast" class="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  var DEFAULT_GITHUB_OWNER = "GANTI_USERNAME_GITHUB_KAMU";
+  var DEFAULT_BACKEND_REPO = "eabsensi-satpam-backend";
+  var DEFAULT_BRANCH = "main";
+  var DEFAULT_DB_PATH = "database.json";
+
+  var APP_KEY = "EABSENSI_SATPAM_BANKKALTIMTARA_DB_FINAL_V3";
+  var CFG_KEY = "EABSENSI_SATPAM_BANKKALTIMTARA_CFG_FINAL_V3";
+  var TOKEN_KEY = "EABSENSI_SATPAM_BANKKALTIMTARA_TOKEN_FINAL_V3";
+  var ADMIN_KEY = "EABSENSI_SATPAM_BANKKALTIMTARA_ADMIN_FINAL_V3";
+  var SHIFT_PATTERN = ["PAGI","MALAM","OFF","OFF","OFF","OFF"];
+
+  var DEFAULT_DB = {
+    version: 3,
+    updatedAt: "2026-05-05T00:00:00.000Z",
+    settings: {
+      appName: "EAbsensi SATPAM BANK KALTIMTARA",
+      adminUser: "admin",
+      adminPass: "123456",
+      anchorDate: "2026-05-05"
+    },
+    members: [
+      {id:"m1",name:"Andi Pratama",role:"Danru",regu:"Regu A",phone:"",startOffset:0,active:true,photo:""},
+      {id:"m2",name:"Budi Santoso",role:"Anggota",regu:"Regu B",phone:"",startOffset:1,active:true,photo:""},
+      {id:"m3",name:"Cahyo Nugroho",role:"Anggota",regu:"Regu A",phone:"",startOffset:2,active:true,photo:""},
+      {id:"m4",name:"Dimas Setiawan",role:"Anggota",regu:"Regu C",phone:"",startOffset:5,active:true,photo:""},
+      {id:"m5",name:"Eko Saputra",role:"Anggota",regu:"Regu D",phone:"",startOffset:3,active:true,photo:""},
+      {id:"m6",name:"Fajar Ramadhan",role:"Anggota",regu:"Regu A",phone:"",startOffset:4,active:true,photo:""}
+    ],
+    notes: [
+      {id:"n1",date:"2026-05-05",time:"07:45",title:"Pemeriksaan Area Lobby",desc:"Pemeriksaan rutin area lobby dan pintu masuk.",memberId:"m1",type:"rutin"},
+      {id:"n2",date:"2026-05-05",time:"06:30",title:"Serah Terima Shift",desc:"Serah terima tugas dari shift malam ke pagi berjalan lancar.",memberId:"m2",type:"serah-terima"}
+    ],
+    exceptions: [
+      {id:"e1",date:"2026-05-05",memberId:"m4",type:"lembur",shift:"PAGI",note:"Backup area ATM"}
+    ],
+    holidays: [
+      {id:"h1",date:"2026-05-05",name:"Contoh Libur Nasional"}
+    ]
+  };
+
+  var db = clone(DEFAULT_DB);
+  var holidaysAuto = [];
+
+  function $(id){ return document.getElementById(id); }
+  function clone(obj){ return JSON.parse(JSON.stringify(obj)); }
+  function pad(n){ return String(n).padStart(2,"0"); }
+  function esc(v){
+    return String(v == null ? "" : v).replace(/[&<>"']/g,function(s){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[s];
+    });
+  }
+  function uid(prefix){ return prefix + Date.now().toString(36) + Math.random().toString(36).slice(2,8); }
+  function dateToStr(d){ return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate()); }
+  function todayStr(){ return dateToStr(new Date()); }
+  function parseDate(s){ var p = String(s).split("-").map(Number); return new Date(p[0],p[1]-1,p[2]); }
+  function dayDiff(a,b){ return Math.floor((Date.UTC(b.getFullYear(),b.getMonth(),b.getDate()) - Date.UTC(a.getFullYear(),a.getMonth(),a.getDate())) / 86400000); }
+  function isoNow(){ return new Date().toISOString(); }
+  function memberById(id){ return (db.members || []).find(function(m){ return m.id === id; }) || {name:"-",regu:"-",role:"-"}; }
+
+  function showDebug(msg){
+    var d = $("debugBox");
+    if(d){ d.style.display = "block"; d.textContent = msg; }
+  }
+
+  function toast(msg){
+    var t = $("toast");
+    if(!t){ alert(msg); return; }
+    t.textContent = msg;
+    t.classList.add("show");
+    setTimeout(function(){ t.classList.remove("show"); }, 3300);
+  }
+
+  function normalizeDb(data){
+    var d = Object.assign(clone(DEFAULT_DB), data || {});
+    d.settings = Object.assign(clone(DEFAULT_DB.settings), d.settings || {});
+    d.members = Array.isArray(d.members) ? d.members : [];
+    d.notes = Array.isArray(d.notes) ? d.notes : [];
+    d.exceptions = Array.isArray(d.exceptions) ? d.exceptions : [];
+    d.holidays = Array.isArray(d.holidays) ? d.holidays : [];
+    d.version = d.version || 3;
+    d.updatedAt = d.updatedAt || isoNow();
+    return d;
+  }
+
+  function loadLocal(){
+    try{
+      var raw = localStorage.getItem(APP_KEY);
+      db = raw ? normalizeDb(JSON.parse(raw)) : clone(DEFAULT_DB);
+    }catch(err){
+      console.error(err);
+      db = clone(DEFAULT_DB);
+    }
+  }
+
+  function saveLocal(touch){
+    if(touch !== false) db.updatedAt = isoNow();
+    localStorage.setItem(APP_KEY, JSON.stringify(db));
+  }
+
+  function getConfig(){
+    var saved = {};
+    try{ saved = JSON.parse(localStorage.getItem(CFG_KEY) || "{}"); }catch(e){}
+    return {
+      owner: saved.owner || DEFAULT_GITHUB_OWNER,
+      repo: saved.repo || DEFAULT_BACKEND_REPO,
+      branch: saved.branch || DEFAULT_BRANCH,
+      path: saved.path || DEFAULT_DB_PATH,
+      token: localStorage.getItem(TOKEN_KEY) || ""
+    };
+  }
+
+  function hasGithubConfig(){
+    var c = getConfig();
+    return !!(c.owner && c.owner !== "GANTI_USERNAME_GITHUB_KAMU" && c.repo && c.branch && c.path);
+  }
+
+  function rawGithubUrl(){
+    var c = getConfig();
+    if(!hasGithubConfig()) return "";
+    var path = c.path.split("/").map(encodeURIComponent).join("/");
+    return "https://raw.githubusercontent.com/" + encodeURIComponent(c.owner) + "/" + encodeURIComponent(c.repo) + "/" + encodeURIComponent(c.branch) + "/" + path + "?v=" + Date.now();
+  }
+
+  function setSyncStatus(msg){
+    if($("syncStatus")) $("syncStatus").textContent = msg;
+  }
+
+  function utf8ToBase64(str){
+    var bytes = new TextEncoder().encode(str);
+    var bin = "";
+    for(var i=0;i<bytes.length;i++) bin += String.fromCharCode(bytes[i]);
+    return btoa(bin);
+  }
+
+  async function loadDbFromGithub(manual){
+    if(!hasGithubConfig()){
+      setSyncStatus("Mode lokal/demo. Data tidak hilang saat refresh di HP ini. Agar semua orang melihat data yang sama, isi GitHub Backend di Admin lalu Sync.");
+      if(manual) toast("Isi Owner GitHub dan repo backend terlebih dahulu.");
+      return;
+    }
+    try{
+      setSyncStatus("Mengambil database dari GitHub...");
+      var res = await fetch(rawGithubUrl(), {cache:"no-store"});
+      if(!res.ok) throw new Error("HTTP " + res.status);
+      var remote = normalizeDb(await res.json());
+      var localTime = Date.parse(db.updatedAt || "2000-01-01");
+      var remoteTime = Date.parse(remote.updatedAt || "2000-01-01");
+      if(localTime > remoteTime && !manual){
+        setSyncStatus("Data lokal lebih baru. Klik Admin → Sync ke GitHub agar tampil untuk semua orang.");
+        renderAll();
+        return;
+      }
+      db = remote;
+      saveLocal(false);
+      renderAll();
+      setSyncStatus("Data aktif dari GitHub. Update: " + new Date(db.updatedAt).toLocaleString("id-ID"));
+      if(manual) toast("Data berhasil di-load dari GitHub.");
+    }catch(err){
+      console.error(err);
+      setSyncStatus("Gagal load GitHub, memakai data lokal yang tersimpan. Detail: " + err.message);
+      if(manual) toast("Gagal load GitHub: " + err.message);
+    }
+  }
+
+  async function saveDbToGithub(){
+    var c = getConfig();
+    if(!hasGithubConfig()){
+      toast("Lengkapi Owner GitHub, Repo, Branch, dan Path database.");
+      return;
+    }
+    if(!c.token){
+      toast("Masukkan GitHub token admin terlebih dahulu.");
+      return;
+    }
+    try{
+      db.updatedAt = isoNow();
+      var apiPath = c.path.split("/").map(encodeURIComponent).join("/");
+      var apiUrl = "https://api.github.com/repos/" + encodeURIComponent(c.owner) + "/" + encodeURIComponent(c.repo) + "/contents/" + apiPath;
+      var sha = "";
+
+      var getRes = await fetch(apiUrl + "?ref=" + encodeURIComponent(c.branch), {
+        headers:{
+          "Authorization":"Bearer " + c.token,
+          "Accept":"application/vnd.github+json",
+          "X-GitHub-Api-Version":"2022-11-28"
+        }
+      });
+
+      if(getRes.ok){
+        var meta = await getRes.json();
+        sha = meta.sha || "";
+      }else if(getRes.status !== 404){
+        throw new Error("Cek file gagal HTTP " + getRes.status + " " + (await getRes.text()).slice(0,120));
+      }
+
+      var payload = {
+        message:"Update database EAbsensi SATPAM " + new Date().toLocaleString("id-ID"),
+        content:utf8ToBase64(JSON.stringify(db, null, 2)),
+        branch:c.branch
+      };
+      if(sha) payload.sha = sha;
+
+      var putRes = await fetch(apiUrl, {
+        method:"PUT",
+        headers:{
+          "Authorization":"Bearer " + c.token,
+          "Accept":"application/vnd.github+json",
+          "Content-Type":"application/json",
+          "X-GitHub-Api-Version":"2022-11-28"
+        },
+        body:JSON.stringify(payload)
+      });
+
+      if(!putRes.ok){
+        throw new Error("Sync gagal HTTP " + putRes.status + " " + (await putRes.text()).slice(0,160));
+      }
+
+      saveLocal(false);
+      renderAll();
+      setSyncStatus("Data berhasil disimpan permanen ke GitHub. Refresh aman.");
+      toast("Berhasil Sync ke GitHub. Data tidak hilang saat refresh.");
+    }catch(err){
+      console.error(err);
+      toast("Gagal Sync GitHub: " + err.message);
+    }
+  }
+
+  async function fetchAutoHolidays(year){
+    holidaysAuto = [];
+    try{
+      var res = await fetch("https://date.nager.at/api/v3/PublicHolidays/" + year + "/ID", {cache:"force-cache"});
+      if(!res.ok) return;
+      var arr = await res.json();
+      holidaysAuto = (Array.isArray(arr) ? arr : []).map(function(h){
+        return {date:h.date, name:h.localName || h.name || "Libur Nasional", auto:true};
+      });
+    }catch(err){
+      holidaysAuto = [];
+    }
+  }
+
+  function allHolidays(){
+    var map = new Map();
+    holidaysAuto.forEach(function(h){ map.set(h.date,h); });
+    (db.holidays || []).forEach(function(h){ map.set(h.date,h); });
+    return Array.from(map.values()).sort(function(a,b){ return a.date.localeCompare(b.date); });
+  }
+
+  function holidayOn(dateStr){
+    return allHolidays().find(function(h){ return h.date === dateStr; });
+  }
+
+  function activeShift(now){
+    now = now || new Date();
+    var hour = now.getHours();
+    if(hour >= 7 && hour < 19) return {code:"PAGI",name:"PAGI",time:"07:00 - 19:00",icon:"☀"};
+    return {code:"MALAM",name:"MALAM",time:"19:00 - 07:00",icon:"☾"};
+  }
+
+  function baseShift(member,dateStr){
+    if(!member || !member.active) return "NONAKTIF";
+    var anchor = parseDate((db.settings && db.settings.anchorDate) || "2026-05-05");
+    var d = parseDate(dateStr);
+    var offset = Number(member.startOffset || 0);
+    var idx = ((dayDiff(anchor,d) + offset) % SHIFT_PATTERN.length + SHIFT_PATTERN.length) % SHIFT_PATTERN.length;
+    return SHIFT_PATTERN[idx];
+  }
+
+  function assignment(member,dateStr){
+    var exs = (db.exceptions || []).filter(function(e){ return e.date === dateStr && e.memberId === member.id; });
+    var cuti = exs.find(function(e){ return e.type === "cuti"; });
+    if(cuti) return {code:"CUTI",label:"CUTI",className:"cuti",icon:"◎",note:cuti.note || ""};
+    var off = exs.find(function(e){ return e.type === "off"; });
+    if(off) return {code:"OFF",label:"OFF",className:"off",icon:"⊖",note:off.note || ""};
+    var lembur = exs.find(function(e){ return e.type === "lembur"; });
+    if(lembur) return {code:"LEMBUR_" + (lembur.shift || "PAGI"),label:"LEMBUR",className:"lembur",icon:"◷",shift:lembur.shift || "PAGI",note:lembur.note || ""};
+    var s = baseShift(member,dateStr);
+    if(s === "PAGI") return {code:"PAGI",label:"PAGI",className:"pagi",icon:"☀"};
+    if(s === "MALAM") return {code:"MALAM",label:"MALAM",className:"malam",icon:"☾"};
+    if(s === "OFF") return {code:"OFF",label:"OFF",className:"off",icon:"⊖"};
+    return {code:"NONAKTIF",label:"NONAKTIF",className:"off",icon:"⊘"};
+  }
+
+  function dutyMembers(dateStr, shiftCode){
+    return (db.members || []).filter(function(m){
+      var a = assignment(m,dateStr);
+      return a.code === shiftCode || a.code === "LEMBUR_" + shiftCode;
+    });
+  }
+
+  function renderClock(){
+    var now = new Date();
+    var dt = now.toLocaleDateString("id-ID", {weekday:"long",day:"2-digit",month:"long",year:"numeric"});
+    if($("todayText")) $("todayText").textContent = dt;
+    if($("clockText")) $("clockText").textContent = pad(now.getHours()) + ":" + pad(now.getMinutes());
+
+    var s = activeShift(now);
+    if($("activeShiftName")) $("activeShiftName").textContent = s.name;
+    if($("activeShiftTime")) $("activeShiftTime").textContent = s.time;
+    if($("activeShiftIcon")) $("activeShiftIcon").textContent = s.icon;
+    if($("statusPagi")) $("statusPagi").classList.toggle("active", s.code === "PAGI");
+    if($("statusMalam")) $("statusMalam").classList.toggle("active", s.code === "MALAM");
+    if($("statusOff")) $("statusOff").classList.remove("active");
+  }
+
+  function memberCardHtml(m,dateStr){
+    var a = assignment(m,dateStr);
+    var bg = m.photo ? ' style="background-image:linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.42)),url(\'' + esc(m.photo) + '\')"' : "";
+    var photoClass = m.photo ? " photo" : "";
+    return '<div class="member-card">' +
+      '<div class="avatar' + photoClass + '"' + bg + '></div>' +
+      '<div class="member-name">' + esc(m.name) + '</div>' +
+      '<div class="member-role">' + esc(m.role) + '</div>' +
+      '<div class="regu">' + esc(m.regu) + '</div>' +
+      '<span class="badge ' + a.className + '">' + a.icon + ' ' + esc(a.label) + '</span>' +
+      '</div>';
+  }
+
+  function noteHtml(n){
+    var m = memberById(n.memberId);
+    return '<div class="note">' +
+      '<div class="note-time">' + esc(n.time || "--:--") + '</div>' +
+      '<div class="note-card"><h4>' + esc(n.title) + '</h4><p>' + esc(n.desc) + '</p><div class="by">Oleh: ' + esc(m.name) + ' • ' + esc(m.regu) + '</div></div>' +
+      '<div style="color:#b7c7e8;font-size:28px">›</div>' +
+      '</div>';
+  }
+
+  function renderDashboard(){
+    var dateStr = todayStr();
+    var s = activeShift();
+    var duty = dutyMembers(dateStr, s.code);
+    var off = (db.members || []).filter(function(m){ return ["OFF","CUTI"].indexOf(assignment(m,dateStr).code) >= 0; });
+
+    if($("countDuty")) $("countDuty").textContent = duty.length;
+    if($("countOff")) $("countOff").textContent = off.length;
+    if($("countHoliday")) $("countHoliday").textContent = holidayOn(dateStr) ? "1" : "0";
+
+    var box = $("todayMembers");
+    if(box){
+      var show = duty.slice(0,4);
+      box.innerHTML = show.length ? show.map(function(m){ return memberCardHtml(m,dateStr); }).join("") : '<div class="empty" style="grid-column:1/-1">Belum ada anggota untuk shift ' + esc(s.code) + ' hari ini. Cek offset shift di Admin.</div>';
+    }
+
+    var notes = (db.notes || []).slice().sort(function(a,b){ return ((b.date || "") + (b.time || "")).localeCompare((a.date || "") + (a.time || "")); }).slice(0,2);
+    if($("latestNotes")) $("latestNotes").innerHTML = notes.length ? notes.map(noteHtml).join("") : '<div class="empty">Belum ada catatan.</div>';
+
+    renderMonthTable($("dashboardTable"), true);
+  }
+
+  function pills(list){
+    return list.length ? list.map(function(m){ return '<span class="pill">' + esc(m.name) + '</span>'; }).join("") : "-";
+  }
+
+  function renderMonthTable(tableEl, compact){
+    if(!tableEl) return;
+    var year, month;
+    var pick = $("monthPick");
+    if(pick && pick.value){
+      var p = pick.value.split("-").map(Number);
+      year = p[0]; month = p[1];
+    }else{
+      var now = new Date();
+      year = now.getFullYear(); month = now.getMonth()+1;
+    }
+
+    var last = new Date(year, month, 0).getDate();
+    var maxDay = compact ? Math.min(last,31) : last;
+    var out = '<thead><tr><th>Tanggal</th><th>Pagi<br>07:00-19:00</th><th>Malam<br>19:00-07:00</th><th>Off</th><th>Lembur</th><th>Cuti</th><th>Libur</th></tr></thead><tbody>';
+
+    for(var day=1; day<=maxDay; day++){
+      var ds = year + "-" + pad(month) + "-" + pad(day);
+      var d = parseDate(ds);
+      var groups = {PAGI:[], MALAM:[], OFF:[], LEMBUR:[], CUTI:[]};
+
+      (db.members || []).filter(function(m){ return m.active; }).forEach(function(m){
+        var a = assignment(m,ds);
+        if(a.code === "PAGI") groups.PAGI.push(m);
+        else if(a.code === "MALAM") groups.MALAM.push(m);
+        else if(a.code === "CUTI") groups.CUTI.push(m);
+        else if(a.code.indexOf("LEMBUR_") === 0) groups.LEMBUR.push(Object.assign({},m,{lemburShift:a.shift}));
+        else groups.OFF.push(m);
+      });
+
+      var h = holidayOn(ds);
+      out += '<tr>' +
+        '<td><b>' + esc(d.toLocaleDateString("id-ID",{weekday:"short"})) + '</b><br>' + pad(day) + '/' + pad(month) + '/' + year + '</td>' +
+        '<td>' + pills(groups.PAGI) + '</td>' +
+        '<td>' + pills(groups.MALAM) + '</td>' +
+        '<td>' + pills(groups.OFF) + '</td>' +
+        '<td>' + (groups.LEMBUR.length ? groups.LEMBUR.map(function(m){ return '<span class="pill">' + esc(m.name) + ' (' + esc(m.lemburShift) + ')</span>'; }).join("") : "-") + '</td>' +
+        '<td>' + pills(groups.CUTI) + '</td>' +
+        '<td>' + (h ? '<span class="holiday">' + esc(h.name) + '</span>' : "-") + '</td>' +
+        '</tr>';
+    }
+    out += "</tbody>";
+    tableEl.innerHTML = out;
+  }
+
+  function renderSchedule(){
+    var pick = $("monthPick");
+    if(pick && !pick.value){
+      var n = new Date();
+      pick.value = n.getFullYear() + "-" + pad(n.getMonth()+1);
+    }
+    renderMonthTable($("scheduleTable"), false);
+    renderMonthTable($("dashboardTable"), true);
+  }
+
+  function renderNotesPage(){
+    var q = ($("noteSearch") ? $("noteSearch").value : "").toLowerCase();
+    var notes = (db.notes || []).slice().sort(function(a,b){ return ((b.date || "") + (b.time || "")).localeCompare((a.date || "") + (a.time || "")); }).filter(function(n){
+      return !q || (String(n.title || "") + String(n.desc || "") + memberById(n.memberId).name).toLowerCase().indexOf(q) >= 0;
+    });
+    if($("notesPage")) $("notesPage").innerHTML = notes.length ? notes.map(noteHtml).join("") : '<div class="empty">Tidak ada catatan.</div>';
+  }
+
+  function fillMemberSelects(){
+    var opts = (db.members || []).map(function(m){ return '<option value="' + esc(m.id) + '">' + esc(m.name) + ' - ' + esc(m.regu) + '</option>'; }).join("");
+    ["noteMember","exMember"].forEach(function(id){ if($(id)) $(id).innerHTML = opts; });
+  }
+
+  function renderAdmin(){
+    var isAdmin = sessionStorage.getItem(ADMIN_KEY) === "1";
+    if($("loginBox")) $("loginBox").style.display = isAdmin ? "none" : "block";
+    if($("adminPanel")) $("adminPanel").style.display = isAdmin ? "block" : "none";
+    if(!isAdmin) return;
+
+    var c = getConfig();
+    $("cfgOwner").value = c.owner === "GANTI_USERNAME_GITHUB_KAMU" ? "" : c.owner;
+    $("cfgRepo").value = c.repo;
+    $("cfgBranch").value = c.branch;
+    $("cfgPath").value = c.path;
+    $("cfgToken").value = c.token;
+    $("setAdminUser").value = (db.settings && db.settings.adminUser) || "admin";
+    $("setAdminPass").value = (db.settings && db.settings.adminPass) || "123456";
+
+    fillMemberSelects();
+
+    $("membersList").innerHTML = (db.members || []).map(function(m){
+      return '<div class="row"><div><b>' + esc(m.name) + '</b><div class="meta">' + esc(m.role) + ' • ' + esc(m.regu) + ' • offset ' + esc(m.startOffset) + ' • ' + (m.active ? "Aktif" : "Nonaktif") + '</div></div>' +
+        '<div class="row-actions"><button class="btn small" type="button" data-edit-member="' + esc(m.id) + '">Edit</button><button class="btn red small" type="button" data-delete-member="' + esc(m.id) + '">Hapus</button></div></div>';
+    }).join("");
+
+    $("adminNotesList").innerHTML = (db.notes || []).slice().sort(function(a,b){ return ((b.date || "")+(b.time || "")).localeCompare((a.date || "")+(a.time || "")); }).map(function(n){
+      return '<div class="row"><div><b>' + esc(n.title) + '</b><div class="meta">' + esc(n.date) + ' ' + esc(n.time) + ' • ' + esc(memberById(n.memberId).name) + '</div></div>' +
+        '<div class="row-actions"><button class="btn small" type="button" data-edit-note="' + esc(n.id) + '">Edit</button><button class="btn red small" type="button" data-delete-note="' + esc(n.id) + '">Hapus</button></div></div>';
+    }).join("");
+
+    $("exceptionsList").innerHTML = (db.exceptions || []).map(function(e){
+      return '<div class="row"><div><b>' + esc(String(e.type || "").toUpperCase()) + '</b><div class="meta">' + esc(e.date) + ' • ' + esc(memberById(e.memberId).name) + ' • ' + esc(e.shift || "-") + ' • ' + esc(e.note || "") + '</div></div>' +
+        '<div class="row-actions"><button class="btn small" type="button" data-edit-exception="' + esc(e.id) + '">Edit</button><button class="btn red small" type="button" data-delete-exception="' + esc(e.id) + '">Hapus</button></div></div>';
+    }).join("");
+
+    $("holidaysList").innerHTML = (db.holidays || []).map(function(h){
+      return '<div class="row"><div><b>' + esc(h.name) + '</b><div class="meta">' + esc(h.date) + '</div></div>' +
+        '<div class="row-actions"><button class="btn small" type="button" data-edit-holiday="' + esc(h.id) + '">Edit</button><button class="btn red small" type="button" data-delete-holiday="' + esc(h.id) + '">Hapus</button></div></div>';
+    }).join("");
+  }
+
+  function renderAll(){
+    renderClock();
+    renderDashboard();
+    renderSchedule();
+    renderNotesPage();
+    renderAdmin();
+  }
+
+  function go(tab){
+    document.querySelectorAll(".view").forEach(function(v){ v.classList.toggle("active", v.id === tab); });
+    document.querySelectorAll(".tab").forEach(function(b){ b.classList.toggle("active", b.getAttribute("data-tab") === tab); });
+    if(tab === "jadwal") renderSchedule();
+    if(tab === "catatan") renderNotesPage();
+    if(tab === "admin") renderAdmin();
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+
+  function adminLogin(){
+    var user = (($("loginUser") && $("loginUser").value) || "").trim();
+    var pass = (($("loginPass") && $("loginPass").value) || "");
+    var okUser = (db.settings && db.settings.adminUser) || "admin";
+    var okPass = (db.settings && db.settings.adminPass) || "123456";
+
+    if($("loginMessage")) $("loginMessage").textContent = "Memeriksa login...";
+
+    if(user === okUser && pass === okPass){
+      sessionStorage.setItem(ADMIN_KEY,"1");
+      if($("loginPass")) $("loginPass").value = "";
+      renderAdmin();
+      toast("Admin berhasil masuk.");
+    }else{
+      if($("loginMessage")) $("loginMessage").textContent = "Username/password salah. Login awal: admin / 123456";
+      toast("Username atau password salah.");
+    }
+  }
+
+  function adminLogout(){
+    sessionStorage.removeItem(ADMIN_KEY);
+    renderAdmin();
+    toast("Admin logout.");
+  }
+
+  function saveConfig(){
+    var cfg = {
+      owner:( $("cfgOwner").value || "").trim(),
+      repo:( $("cfgRepo").value || "").trim() || DEFAULT_BACKEND_REPO,
+      branch:( $("cfgBranch").value || "").trim() || DEFAULT_BRANCH,
+      path:( $("cfgPath").value || "").trim() || DEFAULT_DB_PATH
+    };
+    localStorage.setItem(CFG_KEY, JSON.stringify(cfg));
+    localStorage.setItem(TOKEN_KEY, ($("cfgToken").value || "").trim());
+    setSyncStatus("Config GitHub tersimpan di browser admin. Klik Sync ke GitHub.");
+    toast("Config GitHub disimpan.");
+  }
+
+  function saveAfterEdit(message){
+    saveLocal(true);
+    renderAll();
+    toast(message + " Data aman saat refresh. Klik Sync ke GitHub agar tampil untuk semua orang.");
+  }
+
+  function clearMemberForm(){
+    ["memberId","memberName","memberRole","memberPhone","memberPhoto"].forEach(function(id){ $(id).value = ""; });
+    $("memberRegu").value = "Regu A";
+    $("memberOffset").value = "0";
+    $("memberActive").value = "true";
+  }
+
+  function saveMember(){
+    var id = $("memberId").value || uid("m");
+    var data = {
+      id:id,
+      name:($("memberName").value || "").trim(),
+      role:($("memberRole").value || "").trim() || "Anggota",
+      regu:$("memberRegu").value,
+      phone:($("memberPhone").value || "").trim(),
+      startOffset:Number($("memberOffset").value || 0),
+      active:$("memberActive").value === "true",
+      photo:($("memberPhoto").value || "").trim()
+    };
+    if(!data.name){ toast("Nama anggota wajib diisi."); return; }
+    var idx = (db.members || []).findIndex(function(m){ return m.id === id; });
+    if(idx >= 0) db.members[idx] = data; else db.members.push(data);
+    clearMemberForm();
+    saveAfterEdit("Anggota tersimpan.");
+  }
+
+  function editMember(id){
+    var m = (db.members || []).find(function(x){ return x.id === id; });
+    if(!m) return;
+    $("memberId").value = m.id;
+    $("memberName").value = m.name || "";
+    $("memberRole").value = m.role || "";
+    $("memberRegu").value = m.regu || "Regu A";
+    $("memberPhone").value = m.phone || "";
+    $("memberOffset").value = String(m.startOffset || 0);
+    $("memberActive").value = String(!!m.active);
+    $("memberPhoto").value = m.photo || "";
+    $("memberName").scrollIntoView({behavior:"smooth",block:"center"});
+  }
+
+  function deleteMember(id){
+    if(!confirm("Hapus anggota ini?")) return;
+    db.members = (db.members || []).filter(function(m){ return m.id !== id; });
+    db.notes = (db.notes || []).filter(function(n){ return n.memberId !== id; });
+    db.exceptions = (db.exceptions || []).filter(function(e){ return e.memberId !== id; });
+    saveAfterEdit("Anggota dihapus.");
+  }
+
+  function clearNoteForm(){
+    var n = new Date();
+    $("noteId").value = "";
+    $("noteDate").value = dateToStr(n);
+    $("noteTime").value = pad(n.getHours()) + ":" + pad(n.getMinutes());
+    $("noteTitle").value = "";
+    $("noteDesc").value = "";
+    $("noteType").value = "rutin";
+  }
+
+  function saveNote(){
+    var id = $("noteId").value || uid("n");
+    var data = {
+      id:id,
+      date:$("noteDate").value || todayStr(),
+      time:$("noteTime").value || "00:00",
+      title:($("noteTitle").value || "").trim(),
+      desc:($("noteDesc").value || "").trim(),
+      memberId:$("noteMember").value,
+      type:$("noteType").value
+    };
+    if(!data.title){ toast("Judul catatan wajib diisi."); return; }
+    var idx = (db.notes || []).findIndex(function(n){ return n.id === id; });
+    if(idx >= 0) db.notes[idx] = data; else db.notes.push(data);
+    clearNoteForm();
+    saveAfterEdit("Catatan tersimpan.");
+  }
+
+  function editNote(id){
+    var n = (db.notes || []).find(function(x){ return x.id === id; });
+    if(!n) return;
+    $("noteId").value = n.id;
+    $("noteDate").value = n.date || todayStr();
+    $("noteTime").value = n.time || "00:00";
+    $("noteTitle").value = n.title || "";
+    $("noteDesc").value = n.desc || "";
+    $("noteMember").value = n.memberId || "";
+    $("noteType").value = n.type || "rutin";
+    $("noteTitle").scrollIntoView({behavior:"smooth",block:"center"});
+  }
+
+  function deleteNote(id){
+    if(!confirm("Hapus catatan ini?")) return;
+    db.notes = (db.notes || []).filter(function(n){ return n.id !== id; });
+    saveAfterEdit("Catatan dihapus.");
+  }
+
+  function clearExceptionForm(){
+    $("exceptionId").value = "";
+    $("exDate").value = todayStr();
+    $("exType").value = "lembur";
+    $("exShift").value = "PAGI";
+    $("exNote").value = "";
+  }
+
+  function saveException(){
+    var id = $("exceptionId").value || uid("e");
+    var data = {
+      id:id,
+      date:$("exDate").value || todayStr(),
+      memberId:$("exMember").value,
+      type:$("exType").value,
+      shift:$("exShift").value,
+      note:($("exNote").value || "").trim()
+    };
+    var idx = (db.exceptions || []).findIndex(function(e){ return e.id === id; });
+    if(idx >= 0) db.exceptions[idx] = data; else db.exceptions.push(data);
+    clearExceptionForm();
+    saveAfterEdit("Lembur/Cuti/Off tersimpan.");
+  }
+
+  function editException(id){
+    var e = (db.exceptions || []).find(function(x){ return x.id === id; });
+    if(!e) return;
+    $("exceptionId").value = e.id;
+    $("exDate").value = e.date || todayStr();
+    $("exMember").value = e.memberId || "";
+    $("exType").value = e.type || "lembur";
+    $("exShift").value = e.shift || "PAGI";
+    $("exNote").value = e.note || "";
+    $("exDate").scrollIntoView({behavior:"smooth",block:"center"});
+  }
+
+  function deleteException(id){
+    if(!confirm("Hapus data lembur/cuti/off ini?")) return;
+    db.exceptions = (db.exceptions || []).filter(function(e){ return e.id !== id; });
+    saveAfterEdit("Data dihapus.");
+  }
+
+  function clearHolidayForm(){
+    $("holidayId").value = "";
+    $("holidayDate").value = todayStr();
+    $("holidayName").value = "";
+  }
+
+  function saveHoliday(){
+    var id = $("holidayId").value || uid("h");
+    var data = {
+      id:id,
+      date:$("holidayDate").value || todayStr(),
+      name:($("holidayName").value || "").trim() || "Libur Nasional"
+    };
+    var idx = (db.holidays || []).findIndex(function(h){ return h.id === id; });
+    if(idx >= 0) db.holidays[idx] = data; else db.holidays.push(data);
+    clearHolidayForm();
+    saveAfterEdit("Libur nasional tersimpan.");
+  }
+
+  function editHoliday(id){
+    var h = (db.holidays || []).find(function(x){ return x.id === id; });
+    if(!h) return;
+    $("holidayId").value = h.id;
+    $("holidayDate").value = h.date || todayStr();
+    $("holidayName").value = h.name || "";
+    $("holidayDate").scrollIntoView({behavior:"smooth",block:"center"});
+  }
+
+  function deleteHoliday(id){
+    if(!confirm("Hapus libur ini?")) return;
+    db.holidays = (db.holidays || []).filter(function(h){ return h.id !== id; });
+    saveAfterEdit("Libur dihapus.");
+  }
+
+  function saveAdminSetting(){
+    db.settings = db.settings || {};
+    db.settings.adminUser = ($("setAdminUser").value || "").trim() || "admin";
+    db.settings.adminPass = $("setAdminPass").value || "123456";
+    saveAfterEdit("Setting login tersimpan.");
+  }
+
+  function bindEvents(){
+    document.querySelectorAll(".tab").forEach(function(btn){
+      btn.addEventListener("click",function(){ go(btn.getAttribute("data-tab")); });
+    });
+
+    document.querySelectorAll("[data-goto]").forEach(function(btn){
+      btn.addEventListener("click",function(){ go(btn.getAttribute("data-goto")); });
+    });
+
+    var menu = document.querySelector('[data-action="toast-menu"]');
+    if(menu) menu.addEventListener("click",function(){ toast("Menu bawah tersedia: Dashboard, Jadwal, Catatan, Admin."); });
+
+    var notif = document.querySelector('[data-action="toast-notif"]');
+    if(notif) notif.addEventListener("click",function(){ toast("Notifikasi aktif."); });
+
+    if($("btnAdminLogin")) $("btnAdminLogin").addEventListener("click",adminLogin);
+    if($("loginPass")) $("loginPass").addEventListener("keydown",function(e){ if(e.key === "Enter") adminLogin(); });
+    if($("loginUser")) $("loginUser").addEventListener("keydown",function(e){ if(e.key === "Enter") adminLogin(); });
+
+    if($("btnAdminLogout")) $("btnAdminLogout").addEventListener("click",adminLogout);
+    if($("btnSaveConfig")) $("btnSaveConfig").addEventListener("click",saveConfig);
+    if($("btnSyncGithub")) $("btnSyncGithub").addEventListener("click",saveDbToGithub);
+    if($("btnLoadGithub")) $("btnLoadGithub").addEventListener("click",function(){ loadDbFromGithub(true); });
+
+    if($("btnSaveMember")) $("btnSaveMember").addEventListener("click",saveMember);
+    if($("btnClearMember")) $("btnClearMember").addEventListener("click",clearMemberForm);
+    if($("btnSaveNote")) $("btnSaveNote").addEventListener("click",saveNote);
+    if($("btnClearNote")) $("btnClearNote").addEventListener("click",clearNoteForm);
+    if($("btnSaveException")) $("btnSaveException").addEventListener("click",saveException);
+    if($("btnClearException")) $("btnClearException").addEventListener("click",clearExceptionForm);
+    if($("btnSaveHoliday")) $("btnSaveHoliday").addEventListener("click",saveHoliday);
+    if($("btnClearHoliday")) $("btnClearHoliday").addEventListener("click",clearHolidayForm);
+    if($("btnSaveAdminSetting")) $("btnSaveAdminSetting").addEventListener("click",saveAdminSetting);
+
+    if($("btnRenderSchedule")) $("btnRenderSchedule").addEventListener("click",renderSchedule);
+    if($("btnPrint")) $("btnPrint").addEventListener("click",function(){ window.print(); });
+    if($("monthPick")) $("monthPick").addEventListener("change",renderSchedule);
+    if($("noteSearch")) $("noteSearch").addEventListener("input",renderNotesPage);
+
+    document.addEventListener("click",function(e){
+      var t = e.target;
+      if(!t || !t.getAttribute) return;
+      var id;
+      id = t.getAttribute("data-edit-member"); if(id) return editMember(id);
+      id = t.getAttribute("data-delete-member"); if(id) return deleteMember(id);
+      id = t.getAttribute("data-edit-note"); if(id) return editNote(id);
+      id = t.getAttribute("data-delete-note"); if(id) return deleteNote(id);
+      id = t.getAttribute("data-edit-exception"); if(id) return editException(id);
+      id = t.getAttribute("data-delete-exception"); if(id) return deleteException(id);
+      id = t.getAttribute("data-edit-holiday"); if(id) return editHoliday(id);
+      id = t.getAttribute("data-delete-holiday"); if(id) return deleteHoliday(id);
+    });
+  }
+
+  async function init(){
+    try{
+      bindEvents();
+      loadLocal();
+
+      var n = new Date();
+      if($("monthPick")) $("monthPick").value = n.getFullYear() + "-" + pad(n.getMonth()+1);
+      if($("noteDate")) $("noteDate").value = dateToStr(n);
+      if($("noteTime")) $("noteTime").value = pad(n.getHours()) + ":" + pad(n.getMinutes());
+      if($("exDate")) $("exDate").value = dateToStr(n);
+      if($("holidayDate")) $("holidayDate").value = dateToStr(n);
+
+      renderAll();
+      setSyncStatus("Data lokal tampil. Mengecek GitHub...");
+      fetchAutoHolidays(n.getFullYear()).then(function(){ renderAll(); });
+      loadDbFromGithub(false);
+      setInterval(renderClock,1000);
+      window.EABSENSI_APP_READY = true;
+    }catch(err){
+      console.error(err);
+      showDebug("Error awal aplikasi:\n" + err.message + "\n\nCoba hapus cache browser atau upload ulang index.html FINAL.");
+      alert("Aplikasi error saat awal: " + err.message);
+    }
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded",init);
+  }else{
+    init();
+  }
+
+  window.EABSENSI_APP = {
+    adminLogin:adminLogin,
+    go:go,
+    saveDbToGithub:saveDbToGithub,
+    loadDbFromGithub:loadDbFromGithub,
+    renderAll:renderAll
+  };
+})();
+</script>
+</body>
+</html>
